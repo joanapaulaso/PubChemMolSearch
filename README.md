@@ -63,6 +63,26 @@ For testing and demonstration purposes, we provide example input files for each 
 
 These files are available in the `examples` folder of the repository and can be used to test the functionality of the app.
 
+## 📊 Output Example
+
+Here's an example of what the output looks like for the compound "caffeine":
+
+```
+Molecule Name    CID     InChI Key               Short InChI Key   Monoisotopic Mass   Molecular Formula   Canonical SMILES
+caffeine         2519    RYYVLZVUVIJVGH-UHFFFAOYSA-N   RYYVLZVUVIJVGH   194.080376         C8H10N4O2         CN1C=NC2=C1C(=O)N(C(=O)N2C)C
+```
+
+This tab-separated output provides:
+- Molecule Name: The common name of the compound
+- CID: PubChem Compound ID
+- InChI Key: International Chemical Identifier Key
+- Short InChI Key: First 14 characters of the InChI Key
+- Monoisotopic Mass: The mass of the molecule containing the most abundant isotopes of each element
+- Molecular Formula: The chemical formula of the compound
+- Canonical SMILES: Simplified Molecular-Input Line-Entry System representation
+
+This comprehensive output allows for easy integration with other tools and databases in your research workflow.
+
 ## 👩‍🔬 About the Developer
 
 This app was created by Joana Paula Oliveira, a researcher at the Integrated Laboratory of Plants Science (LIBV). The work is part of ongoing research efforts to streamline chemical compound information retrieval for plant science studies.
