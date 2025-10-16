@@ -4,7 +4,7 @@
 
 ## 📝 Description
 
-PubChem API App is a user-friendly tool designed to interact with the PubChem database, allowing researchers to easily retrieve chemical compound information. This application was developed by Joana Paula Oliveira, a researcher at the Integrated Laboratory of Plants Science (LIBV).
+PubChem API App is a user-friendly tool designed to interact with the PubChem database, allowing researchers to easily retrieve chemical compound information. This application was developed by Joana Paula Oliveira.
 
 ## ✨ Features
 
@@ -85,7 +85,7 @@ This comprehensive output allows for easy integration with other tools and datab
 
 ## 👩‍🔬 About the Developer
 
-This app was created by Joana Paula Oliveira, a researcher at the Integrated Laboratory of Plants Science (LIBV). The work is part of ongoing research efforts to streamline chemical compound information retrieval for plant science studies.
+This app was created by Joana Paula Oliveira. The work is part of ongoing research efforts to streamline chemical compound information retrieval for plant science studies.
 
 ## 📄 License
 
@@ -98,4 +98,5 @@ For questions, issues, or collaborations, please contact Joana Paula Oliveira at
 ## 🙏 Acknowledgments
 
 
-Special thanks to the PubChem platform for providing the API that makes this tool possible, and to the LIBV for supporting this development.
+Special thanks to the PubChem platform for providing the API that makes this tool possible.
+
