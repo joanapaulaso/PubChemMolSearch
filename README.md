@@ -87,12 +87,6 @@ This comprehensive output allows for easy integration with other tools and datab
 
 This app was created by Joana Paula Oliveira, a researcher at the Integrated Laboratory of Plants Science (LIBV). The work is part of ongoing research efforts to streamline chemical compound information retrieval for plant science studies.
 
-## 🌿 Integrated Laboratory of Plants Science (LIBV)
-
-![LIBV Logo](libv_logo.png)
-
-The Integrated Laboratory of Plants Science (LIBV) is dedicated to advancing our understanding of plant biology through interdisciplinary research. Our work combines molecular biology, genetics, biochemistry, and bioinformatics to address crucial questions in plant science.
-
 ## 📄 License
 
 GNU General Public License v3.0
@@ -102,5 +96,6 @@ GNU General Public License v3.0
 For questions, issues, or collaborations, please contact Joana Paula Oliveira at joanapaulasoliveira@gmail.com.
 
 ## 🙏 Acknowledgments
+
 
 Special thanks to the PubChem platform for providing the API that makes this tool possible, and to the LIBV for supporting this development.
