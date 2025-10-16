@@ -1,3 +1,4 @@
+# pubchem_api.py
 import pubchempy as pcp
 import time
 import os
@@ -5,6 +6,7 @@ import json
 from urllib.error import URLError
 
 progress_file = 'progress.txt'
+
 
 def get_compound_info(identifier, input_type, max_retries=3):
     for attempt in range(max_retries):
@@ -23,7 +25,8 @@ def get_compound_info(identifier, input_type, max_retries=3):
 
             compound = results[0]
             cid = compound.cid
-            molecule_name = compound.iupac_name or (compound.synonyms[0] if compound.synonyms else "")
+            molecule_name = compound.iupac_name or (
+                compound.synonyms[0] if compound.synonyms else "")
 
             properties = pcp.get_properties(
                 [
@@ -36,14 +39,17 @@ def get_compound_info(identifier, input_type, max_retries=3):
                 identifier=cid,
             )
 
+            # Safely extract properties with .get() method to avoid KeyError
+            prop_dict = properties[0] if properties else {}
+
             return {
                 "molecule_name": molecule_name,
                 "cid": cid,
-                "inchi_key": properties[0]["InChIKey"] if properties else None,
-                "short_inchi_key": properties[0]["InChIKey"].split("-")[0] if properties and properties[0]["InChIKey"] else None,
-                "monoisotopic_mass": properties[0]["MonoisotopicMass"] if properties else None,
-                "formula": properties[0]["MolecularFormula"] if properties else None,
-                "canonical_smiles": properties[0]["CanonicalSMILES"] if properties else None,
+                "inchi_key": prop_dict.get("InChIKey"),
+                "short_inchi_key": prop_dict.get("InChIKey", "").split("-")[0] if prop_dict.get("InChIKey") else None,
+                "monoisotopic_mass": prop_dict.get("MonoisotopicMass"),
+                "formula": prop_dict.get("MolecularFormula"),
+                "canonical_smiles": prop_dict.get("CanonicalSMILES"),
             }
 
         except (URLError, ConnectionError) as e:
@@ -51,10 +57,15 @@ def get_compound_info(identifier, input_type, max_retries=3):
                 time.sleep(5)  # Wait for 5 seconds before retrying
                 continue
             else:
-                print(f"Error: Unable to retrieve info for '{identifier}' after {max_retries} attempts. Error message: {e}")
+                print(
+                    f"Error: Unable to retrieve info for '{identifier}' after {max_retries} attempts. Error message: {e}")
                 return None
+        except Exception as e:
+            print(f"Unexpected error processing '{identifier}': {e}")
+            return None
 
     return None
+
 
 def get_compound_info_list_with_progress(
     identifiers, input_type, progress_bar, root, status_var, should_continue
@@ -75,22 +86,24 @@ def get_compound_info_list_with_progress(
             print(f"Data for '{identifier}' could not be retrieved.")
         else:
             mol_cids.append(
-                "{}: {}".format(compound_info["molecule_name"], compound_info["cid"])
+                "{}: {}".format(
+                    compound_info["molecule_name"], compound_info["cid"])
             )
             data_line = "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
-                compound_info["molecule_name"],
-                compound_info["cid"],
-                compound_info["inchi_key"],
-                compound_info["short_inchi_key"],
-                compound_info["monoisotopic_mass"],
-                compound_info["formula"],
-                compound_info["canonical_smiles"],
+                compound_info["molecule_name"] or "",
+                compound_info["cid"] or "",
+                compound_info["inchi_key"] or "",
+                compound_info["short_inchi_key"] or "",
+                compound_info["monoisotopic_mass"] or "",
+                compound_info["formula"] or "",
+                compound_info["canonical_smiles"] or "",
             )
             print(data_line)
             full_data.append(data_line)
 
         progress_bar["value"] = index + 1
-        truncated_identifier = identifier[:15] + "..." if len(identifier) > 15 else identifier
+        truncated_identifier = identifier[:15] + \
+            "..." if len(identifier) > 15 else identifier
         status_var.set(
             f"Processing {input_type} {index + 1}/{len(identifiers)}: {truncated_identifier}"
         )
@@ -104,9 +117,11 @@ def get_compound_info_list_with_progress(
 
     return mol_cids, full_data
 
+
 def save_progress(state):
     with open(progress_file, 'w') as file:
         json.dump(state, file)
+
 
 def load_progress():
     if os.path.exists(progress_file):
@@ -116,8 +131,10 @@ def load_progress():
                 state['last_saved_time'] = time.time()
             return state
     else:
-        state = {"index": 0, "successful_requests": 0, "current_step": "start", "last_saved_time": time.time()}
+        state = {"index": 0, "successful_requests": 0,
+                 "current_step": "start", "last_saved_time": time.time()}
         return state
+
 
 def remove_duplicates(data_file):
     if not os.path.exists(data_file):
